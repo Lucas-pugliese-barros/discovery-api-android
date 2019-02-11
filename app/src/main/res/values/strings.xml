@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">DiscoveryApiAndroid</string>
+    <string name="app_name">Discovery Api Android</string>
+    <string name="api_list">Lista de APIs</string>
 </resources>
