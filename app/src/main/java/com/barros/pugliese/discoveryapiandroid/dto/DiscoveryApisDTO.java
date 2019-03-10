@@ -1,11 +1,11 @@
-package com.barros.pugliese.discoveryapiandroid.Model;
+package com.barros.pugliese.discoveryapiandroid.dto;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class DiscoveryApis {
+public class DiscoveryApisDTO {
 
     @SerializedName("kind")
     String kind;
@@ -14,21 +14,21 @@ public class DiscoveryApis {
     String discoveryVersion;
 
     @SerializedName("items")
-    List<Api> apis;
+    List<ApiDTO> apiDTOS;
 
-    public DiscoveryApis() {
+    public DiscoveryApisDTO() {
     }
 
-    public DiscoveryApis(List<Api> apis) {
-        this.apis = apis;
+    public DiscoveryApisDTO(List<ApiDTO> apiDTOS) {
+        this.apiDTOS = apiDTOS;
     }
 
-    public List<Api> getApis() {
-        return apis;
+    public List<ApiDTO> getApiDTOS() {
+        return apiDTOS;
     }
 
-    public void setApis(List<Api> apis) {
-        this.apis = apis;
+    public void setApiDTOS(List<ApiDTO> apiDTOS) {
+        this.apiDTOS = apiDTOS;
     }
 
     @Override
@@ -36,12 +36,12 @@ public class DiscoveryApis {
         return "DiscoveryApis{" +
                 "kind='" + kind + '\'' +
                 ", discoveryVersion='" + discoveryVersion + '\'' +
-                ", apis=" + apis +
+                ", apis=" + apiDTOS +
                 '}';
     }
 
-    public static DiscoveryApis fromJson(String string) {
+    public static DiscoveryApisDTO fromJson(String string) {
         Gson gson = new Gson();
-        return gson.fromJson(string, DiscoveryApis.class);
+        return gson.fromJson(string, DiscoveryApisDTO.class);
     }
 }

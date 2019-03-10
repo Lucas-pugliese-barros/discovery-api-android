@@ -1,7 +1,7 @@
-package com.barros.pugliese.discoveryapiandroid.Data.remote.apis;
+package com.barros.pugliese.discoveryapiandroid.data.remote.apis;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.android.volley.Response;
 

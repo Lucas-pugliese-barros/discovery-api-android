@@ -1,0 +1,5 @@
+./adb shell am instrument -w -e class 'com.barros.pugliese.discoveryapiandroid.views.apis.PerformanceTesting' com.barros.pugliese.discoveryapiandroid.test/androidx.test.runner.AndroidJUnitRunner
+
+./adb shell
+logcat -c 
+logcat | grep Presenter

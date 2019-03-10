@@ -1,8 +1,8 @@
-package com.barros.pugliese.discoveryapiandroid.Data.remote.apis;
+package com.barros.pugliese.discoveryapiandroid.data.remote.apis;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,6 +28,7 @@ public class ApiRemoteRespository implements IApiRemoteRepository {
         JsonObjectRequest jsonObjectRequest =
                 new JsonObjectRequest(Request.Method.GET, BASE_URL + APIS_ENDPOINT, null, listener, errorListener);
 
+        jsonObjectRequest.setShouldCache(false);
         requestQueue.add(jsonObjectRequest);
     }
 }

@@ -1,9 +1,9 @@
-package com.barros.pugliese.discoveryapiandroid.Model;
+package com.barros.pugliese.discoveryapiandroid.dto;
 
 
 import com.google.gson.annotations.SerializedName;
 
-public class Icons {
+public class IconsDTO {
 
     @SerializedName("x16")
     private String x16;
@@ -11,7 +11,7 @@ public class Icons {
     @SerializedName("x32")
     private String x32;
 
-    public Icons() {
+    public IconsDTO() {
     }
 
     public String getX16() {
