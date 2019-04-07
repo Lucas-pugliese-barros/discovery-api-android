@@ -5,11 +5,13 @@ import com.android.volley.VolleyError;
 import com.barros.pugliese.discoveryapiandroid.data.local.apis.IApiLocalRepository;
 import com.barros.pugliese.discoveryapiandroid.dto.ApiDTO;
 
+import java.util.List;
+
 import static com.barros.pugliese.discoveryapiandroid.utils.TimeTracker.recordTime;
 
 public class FavoriteApisPresenter implements FavoriteApisContract.Presenter, Response.ErrorListener {
 
-    private static String TAG = FavoriteApisPresenter.class.getSimpleName();
+    private static String TAG_LOCAL = FavoriteApisPresenter.class.getSimpleName() + " LOCAL ";
 
     private final IApiLocalRepository apiLocalRepository;
     private final FavoriteApisContract.View view;
@@ -21,9 +23,10 @@ public class FavoriteApisPresenter implements FavoriteApisContract.Presenter, Re
 
     @Override
     public void loadApisList() {
-        recordTime(TAG, "loadApisList");
-        view.updateApiList(apiLocalRepository.getAllFavoriteApis());
-        recordTime(TAG, "updateApiList");
+        recordTime(TAG_LOCAL, "loadApisList");
+        List<ApiDTO> apis = apiLocalRepository.getAllFavoriteApis();
+        recordTime(TAG_LOCAL, "updateApiList");
+        view.updateApiList(apis);
     }
 
     @Override

@@ -13,7 +13,8 @@ import static com.barros.pugliese.discoveryapiandroid.utils.TimeTracker.recordTi
 
 public class ApiListPresenter implements ApiListContract.Presenter, Response.ErrorListener {
 
-    private static String TAG = ApiListPresenter.class.getSimpleName();
+    private static String TAG_REMOTE = ApiListPresenter.class.getSimpleName() + " REMOTE ";
+    private static String TAG_LIKE_API = ApiListPresenter.class.getSimpleName() + " LIKE_API ";
 
     private final IApiRemoteRepository apiRemoteRespository;
     private IApiLocalRepository apiLocalRepository;
@@ -32,14 +33,16 @@ public class ApiListPresenter implements ApiListContract.Presenter, Response.Err
 
    @Override
     public void loadApisList() {
-       recordTime(TAG, "loadApisList");
+       recordTime(TAG_REMOTE, "loadApisList");
 
        apiRemoteRespository.getAll(this::updateApiList, this::onErrorResponse);
     }
 
     @Override
     public void likeApi(ApiDTO apiDTO) {
+        recordTime(TAG_LIKE_API, "likeApi");
         apiLocalRepository.likeApi(apiDTO);
+        recordTime(TAG_LIKE_API, "apiLiked");
     }
 
     @Override
@@ -54,9 +57,10 @@ public class ApiListPresenter implements ApiListContract.Presenter, Response.Err
 
     private void updateApiList(JSONObject jsonObject) {
         DiscoveryApisDTO discoveryApisDTO = DiscoveryApisDTO.fromJson(jsonObject.toString());
-        view.updateApiList(discoveryApisDTO.getApiDTOS());
 
-        recordTime(TAG, "updateApiList");
+        recordTime(TAG_REMOTE, "updateApiList");
+
+        view.updateApiList(discoveryApisDTO.getApiDTOS());
     }
 
     @Override

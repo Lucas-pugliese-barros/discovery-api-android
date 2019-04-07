@@ -15,15 +15,20 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.barros.pugliese.discoveryapiandroid.utils.TimeTracker.recordTime;
+
 public class ApisAdapter extends RecyclerView.Adapter<ApisAdapter.ViewHolder> {
+
+    static String TAG = "";
 
     private List<ApiDTO> apiDTOS;
 
     private OnApiLikeListener likedListener;
     private OnApiDislikeListener dislikeListener;
 
-    public ApisAdapter() {
+    public ApisAdapter(String TAG) {
         this.apiDTOS = new ArrayList<>();
+        this.TAG = TAG;
     }
 
     @NonNull
@@ -35,12 +40,14 @@ public class ApisAdapter extends RecyclerView.Adapter<ApisAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+        if (position == 0)
+            recordTime(TAG, "apisListLoaded");
+
         ApiDTO apiDTO = apiDTOS.get(position);
 
         viewHolder.position.setText(String.valueOf(position));
-        viewHolder.title.setText(apiDTO.getTitle());
+        viewHolder.name.setText(apiDTO.getName());
         viewHolder.description.setText(apiDTO.getDescription());
-        viewHolder.version.setText(apiDTO.getVersion());
 
         viewHolder.favorite.setOnCheckedChangeListener(null);
         viewHolder.favorite.setChecked(apiDTO.isFavorited());
@@ -54,6 +61,8 @@ public class ApisAdapter extends RecyclerView.Adapter<ApisAdapter.ViewHolder> {
                     apiDTO.setFavorited(isFavorited);
                 }
         );
+
+
     }
 
     @Override
@@ -81,18 +90,16 @@ public class ApisAdapter extends RecyclerView.Adapter<ApisAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView position;
-        private TextView title;
+        private TextView name;
         private TextView description;
-        private TextView version;
         private CheckBox favorite;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             position = itemView.findViewById(R.id.position);
-            title = itemView.findViewById(R.id.title);
+            name = itemView.findViewById(R.id.name);
             description = itemView.findViewById(R.id.description);
-            version = itemView.findViewById(R.id.version);
             favorite = itemView.findViewById(R.id.is_favorite);
         }
     }

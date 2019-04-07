@@ -23,7 +23,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.barros.pugliese.discoveryapiandroid.utils.TimeTracker.recordTime;
+
 public class ApiListActivity extends AppCompatActivity implements ApiListContract.View {
+
+    private static final String TAG_LIST_REMOTE = ApiListActivity.class.getSimpleName() + " LIST_REMOTE ";
 
     private ApiListContract.Presenter presenter;
 
@@ -69,6 +73,7 @@ public class ApiListActivity extends AppCompatActivity implements ApiListContrac
 
     @Override
     public void updateApiList(List<ApiDTO> apis) {
+        recordTime(TAG_LIST_REMOTE, "addingApisToList");
         apisAdapter.addItems(apis);
     }
 
@@ -96,7 +101,7 @@ public class ApiListActivity extends AppCompatActivity implements ApiListContrac
     }
 
     private void setupList() {
-        apisAdapter = new ApisAdapter();
+        apisAdapter = new ApisAdapter(TAG_LIST_REMOTE);
         apisAdapter.setLikedListener(presenter::likeApi);
         apisAdapter.setDislikeListener(presenter::dislikeApi);
 
