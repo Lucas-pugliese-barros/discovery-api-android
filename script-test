@@ -1,5 +1,15 @@
-./adb shell am instrument -w -e class 'com.barros.pugliese.discoveryapiandroid.views.apis.PerformanceTesting' com.barros.pugliese.discoveryapiandroid.test/androidx.test.runner.AndroidJUnitRunner
+/Android/Sdk/platform-tools
+
 
 ./adb shell
+
+
+for i in {1..2}
+do
+    echo Test Number $i
+    ./adb shell am instrument -w -e class 'com.barros.pugliese.discoveryapiandroid.views.apis.PerformanceTesting' com.barros.pugliese.discoveryapiandroid.test/androidx.test.runner.AndroidJUnitRunner
+done
+
+
 logcat -c 
-logcat | grep Presenter
+logcat | grep -E "TITLES|VALUES"

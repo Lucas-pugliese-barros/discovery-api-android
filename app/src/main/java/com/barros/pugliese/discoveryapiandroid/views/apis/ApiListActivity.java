@@ -3,6 +3,7 @@ package com.barros.pugliese.discoveryapiandroid.views.apis;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
@@ -27,7 +28,7 @@ import static com.barros.pugliese.discoveryapiandroid.utils.TimeTracker.recordTi
 
 public class ApiListActivity extends AppCompatActivity implements ApiListContract.View {
 
-    private static final String TAG_LIST_REMOTE = ApiListActivity.class.getSimpleName() + " LIST_REMOTE ";
+    private static final String TAG_LIST_REMOTE = " LIST_REMOTE ";
 
     private ApiListContract.Presenter presenter;
 
@@ -73,7 +74,6 @@ public class ApiListActivity extends AppCompatActivity implements ApiListContrac
 
     @Override
     public void updateApiList(List<ApiDTO> apis) {
-        recordTime(TAG_LIST_REMOTE, "addingApisToList");
         apisAdapter.addItems(apis);
     }
 
@@ -108,7 +108,6 @@ public class ApiListActivity extends AppCompatActivity implements ApiListContrac
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(apisAdapter);
-        recyclerView.addItemDecoration(
-                new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
     }
 }

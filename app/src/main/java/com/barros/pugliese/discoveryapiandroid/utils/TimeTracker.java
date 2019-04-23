@@ -4,16 +4,17 @@ import androidx.annotation.NonNull;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TimeTracker {
 
     private static final String DATE_FORMAT = "HH:mm:ss.SSS";
     private static HashMap<String, List<Date>> timeHistory = new HashMap<>();
+    private static HashMap<String, Long> processingTimes = new HashMap<>();
 
     public static void recordTime(@NonNull String tag, String message) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
@@ -23,6 +24,22 @@ public class TimeTracker {
 
         timeHistory = updateHistory(timeHistory, tag, date);
         calculateProcessingTime(timeHistory, tag);
+    }
+
+    public static void printResult() {
+        String titlesTag = "TITLES";
+        String valuesTag = "VALUES";
+
+        StringBuilder titles = new StringBuilder();
+        StringBuilder values = new StringBuilder();
+
+        for (Map.Entry<String, Long> value : processingTimes.entrySet()) {
+            titles.append(value.getKey() + ",");
+            values.append(value.getValue() + ",");
+        }
+
+        Log.i(titlesTag, titles.toString());
+        Log.i(valuesTag, values.toString());
     }
 
     private static HashMap<String, List<Date>> updateHistory(HashMap<String, List<Date>> hashMap,
@@ -61,6 +78,7 @@ public class TimeTracker {
             Date lastDate =  dates.get(dates.size() - 1);
             Long processingTime = lastDate.getTime() - penultimateDate.getTime();
 
+            processingTimes.put(tag, processingTime);
             Log.i(tag,"PROCESSING TIME: "  + String.valueOf(processingTime) + " milliseconds");
         }                        
     }

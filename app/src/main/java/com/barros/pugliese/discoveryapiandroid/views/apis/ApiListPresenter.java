@@ -13,8 +13,8 @@ import static com.barros.pugliese.discoveryapiandroid.utils.TimeTracker.recordTi
 
 public class ApiListPresenter implements ApiListContract.Presenter, Response.ErrorListener {
 
-    private static String TAG_REMOTE = ApiListPresenter.class.getSimpleName() + " REMOTE ";
-    private static String TAG_LIKE_API = ApiListPresenter.class.getSimpleName() + " LIKE_API ";
+    private static String TAG_REMOTE = " REMOTE ";
+    private static String TAG_LIKE_API = " LIKE_API ";
 
     private final IApiRemoteRepository apiRemoteRespository;
     private IApiLocalRepository apiLocalRepository;
@@ -39,10 +39,14 @@ public class ApiListPresenter implements ApiListContract.Presenter, Response.Err
     }
 
     @Override
-    public void likeApi(ApiDTO apiDTO) {
-        recordTime(TAG_LIKE_API, "likeApi");
+    public void likeApi(ApiDTO apiDTO, int position) {
+        if (position == 0)
+            recordTime(TAG_LIKE_API, "likeApi");
+
         apiLocalRepository.likeApi(apiDTO);
-        recordTime(TAG_LIKE_API, "apiLiked");
+
+        if (position == 0)
+            recordTime(TAG_LIKE_API, "apiLiked");
     }
 
     @Override

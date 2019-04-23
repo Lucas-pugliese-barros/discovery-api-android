@@ -4,5 +4,5 @@ import com.barros.pugliese.discoveryapiandroid.dto.ApiDTO;
 
 @FunctionalInterface
 public interface OnApiLikeListener {
-    void OnApiLike(ApiDTO apiDTO);
+    void OnApiLike(ApiDTO apiDTO, int position);
 }

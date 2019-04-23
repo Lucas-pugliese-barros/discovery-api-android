@@ -16,6 +16,7 @@ public interface FavoriteApisContract {
     interface Presenter extends IBasePresenter {
         void loadApisList();
         void dislikeApi(ApiDTO apiDTO);
+        void deleteAll();
     }
 
 }

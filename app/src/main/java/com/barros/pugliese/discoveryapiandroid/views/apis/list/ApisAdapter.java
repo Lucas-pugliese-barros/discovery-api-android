@@ -1,5 +1,6 @@
 package com.barros.pugliese.discoveryapiandroid.views.apis.list;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.barros.pugliese.discoveryapiandroid.utils.TimeTracker.printResult;
 import static com.barros.pugliese.discoveryapiandroid.utils.TimeTracker.recordTime;
 
 public class ApisAdapter extends RecyclerView.Adapter<ApisAdapter.ViewHolder> {
@@ -25,6 +27,7 @@ public class ApisAdapter extends RecyclerView.Adapter<ApisAdapter.ViewHolder> {
 
     private OnApiLikeListener likedListener;
     private OnApiDislikeListener dislikeListener;
+    private OnItemLoadedListener itemLoadedListener;
 
     public ApisAdapter(String TAG) {
         this.apiDTOS = new ArrayList<>();
@@ -40,9 +43,6 @@ public class ApisAdapter extends RecyclerView.Adapter<ApisAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        if (position == 0)
-            recordTime(TAG, "apisListLoaded");
-
         ApiDTO apiDTO = apiDTOS.get(position);
 
         viewHolder.position.setText(String.valueOf(position));
@@ -54,7 +54,7 @@ public class ApisAdapter extends RecyclerView.Adapter<ApisAdapter.ViewHolder> {
         viewHolder.favorite.setOnCheckedChangeListener((buttonView, isFavorited) ->
                 {
                     if(likedListener != null && isFavorited)
-                        likedListener.OnApiLike(apiDTO);
+                        likedListener.OnApiLike(apiDTO, position);
                     else if(dislikeListener != null && !isFavorited)
                         dislikeListener.OnApiDislike(apiDTO);
 
@@ -62,7 +62,11 @@ public class ApisAdapter extends RecyclerView.Adapter<ApisAdapter.ViewHolder> {
                 }
         );
 
+        if (position == 3)
+            recordTime(TAG, "apisListLoaded");
 
+        if (itemLoadedListener != null)
+            itemLoadedListener.OnItemLoaded(position);
     }
 
     @Override
@@ -71,6 +75,8 @@ public class ApisAdapter extends RecyclerView.Adapter<ApisAdapter.ViewHolder> {
     }
 
     public void addItems(List<ApiDTO> newApiDTOS) {
+        recordTime(TAG, "addingApisToList");
+
         int positionStart = apiDTOS.isEmpty() ? apiDTOS.size() : apiDTOS.size() - 1 ;
         apiDTOS.addAll(newApiDTOS);
         notifyItemRangeInserted(positionStart, newApiDTOS.size());
@@ -110,5 +116,9 @@ public class ApisAdapter extends RecyclerView.Adapter<ApisAdapter.ViewHolder> {
 
     public void setDislikeListener(OnApiDislikeListener dislikeListener) {
         this.dislikeListener = dislikeListener;
+    }
+
+    public void setItemLoadedListener(OnItemLoadedListener itemLoadedListener) {
+        this.itemLoadedListener = itemLoadedListener;
     }
 }

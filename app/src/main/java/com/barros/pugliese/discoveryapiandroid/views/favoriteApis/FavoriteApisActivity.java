@@ -2,6 +2,7 @@ package com.barros.pugliese.discoveryapiandroid.views.favoriteApis;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.barros.pugliese.discoveryapiandroid.R;
@@ -18,11 +19,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static com.barros.pugliese.discoveryapiandroid.utils.TimeTracker.recordTime;
+import static com.barros.pugliese.discoveryapiandroid.utils.TimeTracker.printResult;
 
 public class FavoriteApisActivity extends AppCompatActivity implements FavoriteApisContract.View {
 
-    static final String TAG_LIST_LOCAL = FavoriteApisActivity.class.getSimpleName() + " LIST_LOCAL ";
+    static final String TAG_LIST_LOCAL = " LIST_LOCAL ";
 
     private FavoriteApisContract.Presenter presenter;
 
@@ -60,7 +61,6 @@ public class FavoriteApisActivity extends AppCompatActivity implements FavoriteA
 
     @Override
     public void updateApiList(List<ApiDTO> apis) {
-        recordTime(TAG_LIST_LOCAL, "addingApisToList");
         apisAdapter.addItems(apis);
     }
 
@@ -77,12 +77,20 @@ public class FavoriteApisActivity extends AppCompatActivity implements FavoriteA
     private void setupList() {
         apisAdapter = new ApisAdapter(TAG_LIST_LOCAL);
         apisAdapter.setDislikeListener(presenter::dislikeApi);
+        apisAdapter.setItemLoadedListener(this::onItemLoaded);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(apisAdapter);
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+    }
+
+    private void onItemLoaded(int position) {
+        if (position == 3) {
+            printResult();
+            presenter.deleteAll();
+        }
     }
 
 }

@@ -109,4 +109,11 @@ public class ApiLocalRepository implements IApiLocalRepository {
 
         return apis;
     }
+
+    @Override
+    public void deleteAll() {
+        SQLiteDatabase db = databaseManager.getWritableDatabase();
+
+        db.delete(TABLE_NAME, null, null);
+    }
 }

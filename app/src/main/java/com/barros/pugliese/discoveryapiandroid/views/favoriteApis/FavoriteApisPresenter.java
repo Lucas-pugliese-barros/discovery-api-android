@@ -11,7 +11,7 @@ import static com.barros.pugliese.discoveryapiandroid.utils.TimeTracker.recordTi
 
 public class FavoriteApisPresenter implements FavoriteApisContract.Presenter, Response.ErrorListener {
 
-    private static String TAG_LOCAL = FavoriteApisPresenter.class.getSimpleName() + " LOCAL ";
+    private static String TAG_LOCAL = " LOCAL ";
 
     private final IApiLocalRepository apiLocalRepository;
     private final FavoriteApisContract.View view;
@@ -33,6 +33,11 @@ public class FavoriteApisPresenter implements FavoriteApisContract.Presenter, Re
     public void dislikeApi(ApiDTO apiDTO) {
         apiLocalRepository.dislikeApi(apiDTO);
         view.onApiDisliked(apiDTO);
+    }
+
+    @Override
+    public void deleteAll() {
+        apiLocalRepository.deleteAll();
     }
 
     @Override

@@ -9,5 +9,5 @@ public interface IApiLocalRepository {
     void likeApi(ApiDTO apiDTO);
     void dislikeApi(ApiDTO apiDTO);
     List<ApiDTO> getAllFavoriteApis();
-
+    void deleteAll();
 }

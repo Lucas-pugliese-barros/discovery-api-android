@@ -28,8 +28,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 @RunWith(AndroidJUnit4.class)
 public class PerformanceTesting {
 
-    private static final Integer INTERVAL = 5;
-    private static final Integer MAX_OF_ITEMS = 235;
+    private static final Integer MAX_OF_ITEMS = 4;
 
     private List<Integer> ITEMS_POSITION = new ArrayList<>();
 
@@ -54,7 +53,7 @@ public class PerformanceTesting {
     }
 
     private void setupItems() {
-        for (int i = 0; i < MAX_OF_ITEMS; i += INTERVAL) {
+        for (int i = 0; i < MAX_OF_ITEMS; i++) {
             ITEMS_POSITION.add(i);
         }
     }

@@ -17,7 +17,7 @@ public interface ApiListContract {
 
     interface Presenter extends IBasePresenter {
         void loadApisList();
-        void likeApi(ApiDTO apiDTO);
+        void likeApi(ApiDTO apiDTO, int position);
         void dislikeApi(ApiDTO apiDTO);
         void redirectUserToFavoriteApiScreen();
     }
