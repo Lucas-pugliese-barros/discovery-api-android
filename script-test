@@ -4,7 +4,7 @@
 ./adb shell
 
 
-for i in {1..2}
+for i in {1..50}
 do
     echo Test Number $i
     ./adb shell am instrument -w -e class 'com.barros.pugliese.discoveryapiandroid.views.apis.PerformanceTesting' com.barros.pugliese.discoveryapiandroid.test/androidx.test.runner.AndroidJUnitRunner
