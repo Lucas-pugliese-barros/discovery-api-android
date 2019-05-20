@@ -28,34 +28,25 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 @RunWith(AndroidJUnit4.class)
 public class PerformanceTesting {
 
-    private static final Integer MAX_OF_ITEMS = 4;
-
-    private List<Integer> ITEMS_POSITION = new ArrayList<>();
+    private static final Integer MAX_OF_ITEMS = 11;
 
     @Before
     public void launchActivity() {
         ActivityScenario.launch(ApiListActivity.class);
-        setupItems();
     }
 
     @Test
     public void mainTest() {
         SystemClock.sleep(2000);
 
-        for (int position = 0; position < ITEMS_POSITION.size(); position++) {
+        for (int position = 0; position < MAX_OF_ITEMS; position++) {
             onView(withId(R.id.list)).perform(
-                    RecyclerViewActions.actionOnItemAtPosition(ITEMS_POSITION.get(position), clickChildAction(R.id.is_favorite)));
+                    RecyclerViewActions.actionOnItemAtPosition(position, clickChildAction(R.id.is_favorite)));
 
             SystemClock.sleep(500);
         }
 
         onView(withId(R.id.action_favorite)).perform(click());
-    }
-
-    private void setupItems() {
-        for (int i = 0; i < MAX_OF_ITEMS; i++) {
-            ITEMS_POSITION.add(i);
-        }
     }
 
     private ViewAction clickChildAction(final int id) {
