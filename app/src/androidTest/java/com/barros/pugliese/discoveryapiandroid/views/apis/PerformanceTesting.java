@@ -28,7 +28,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 @RunWith(AndroidJUnit4.class)
 public class PerformanceTesting {
 
-    private static final Integer MAX_OF_ITEMS = 4;
+    private static final Integer MAX_OF_ITEMS = 6;
 
     @Before
     public void launchActivity() {
